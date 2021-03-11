@@ -14,6 +14,6 @@ for t in tables:
     print("TABLE: {}".format(t), end="")
 
     query = "SELECT COUNT(*) FROM {};".format(t)
-    df = query_to_df(db_connector, query, col_headers=["count"])
-    print(": {:,}".format(int(df.loc["count", 0])))
+    df = query_to_df(db_connector, query)
+    print(": {:,}".format(int(df.iloc[0,0])))
     #print(tabulate(df, headers="keys", tablefmt="psql", showindex=False))
