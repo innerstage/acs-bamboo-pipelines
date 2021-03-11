@@ -10,8 +10,8 @@ names_df = query_to_df(db_connector, "SHOW TABLES")
 tables = names_df["name"].tolist()
 
 # Print row count
-for t in tables:
-    print("TABLE: {}".format(t), end="")
+for t in [table for table in tables if "acs" in table]:
+    print("\nTABLE: {}".format(t))
 
     query = "SELECT year, COUNT(*) FROM {} GROUP BY year ORDER BY year;".format(t)
     df = query_to_df(db_connector, query)

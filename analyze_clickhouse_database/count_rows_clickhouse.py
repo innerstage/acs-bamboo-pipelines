@@ -10,7 +10,7 @@ names_df = query_to_df(db_connector, "SHOW TABLES")
 tables = names_df["name"].tolist()
 
 # Print row count
-for t in tables:
+for t in [table for table in tables if "acs" in table]:
     print("TABLE: {}".format(t), end="")
 
     query = "SELECT COUNT(*) FROM {};".format(t)
