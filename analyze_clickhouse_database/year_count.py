@@ -14,5 +14,9 @@ for t in [table for table in tables if "acs" in table]:
     print("\nTABLE: {}".format(t))
 
     query = "SELECT year, COUNT(*) FROM {} GROUP BY year ORDER BY year;".format(t)
-    df = query_to_df(db_connector, query)
-    print(tabulate(df, headers="keys", tablefmt="psql", showindex=False))
+    df = query_to_df(db_connector, query, col_headers=["year", "count"])
+    new_df = pd.DataFrame({
+        "year": df["year"].tolist(),
+        "count": ["{:,}".format(int(c)) for c in df["count"]]
+    })
+    print(tabulate(new_df, headers="keys", tablefmt="psql", showindex=False))
