@@ -11,8 +11,9 @@ tables = names_df["name"].tolist()
 
 # Print row count
 for t in tables:
-    print("\n\nTABLE: {}".format(t))
+    print("TABLE: {}".format(t), end="")
 
     query = "SELECT COUNT(*) FROM {};".format(t)
-    df = query_to_df(db_connector, query)
-    print(tabulate(df, headers="keys", tablefmt="psql", showindex=False))
+    df = query_to_df(db_connector, query, col_headers=["count"])
+    print(": {:,}".format(int(df.loc["count", 0])))
+    #print(tabulate(df, headers="keys", tablefmt="psql", showindex=False))
